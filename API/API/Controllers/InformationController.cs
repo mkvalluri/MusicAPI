@@ -158,14 +158,30 @@ namespace API.Controllers
         [HttpGet]
         public List<ArtistJSON> GetArtists(string artistName)
         {
-            return artistInfos.Where(a => a.ArtistName.Contains(artistName)).ToList();
+            var artistList = artistInfos.Where(a => a.ArtistName.Contains(artistName)).ToList();
+            if (artistList != null && artistList.Count > 0)
+                return artistList;
+            else
+            {
+                artistList = new List<ArtistJSON>();
+                artistList.Add(new ArtistJSON() { ArtistActiveYears = null, ArtistEchonestId = null, ArtistGenres = null, ArtistId = -1, ArtistImageLink = null, ArtistLocation = null, ArtistMainGenre = null, ArtistName = null, ArtistPopularity = -1 });
+                return artistList;
+            }
         }
 
         [Route("api/SearchArtistsByYearRange")]
         [HttpGet]
         public List<ArtistJSON> GetArtistsByYearRange(int startYear, int endYear)
         {
-            return artistInfos.Where(a => a.ArtistActiveYears.Count > 0 && a.ArtistActiveYears.FirstOrDefault().Start >= startYear && a.ArtistActiveYears.LastOrDefault().Start <= endYear).ToList().GetRange(0, 10);
+            var artistList = artistInfos.Where(a => a.ArtistActiveYears.Count > 0 && a.ArtistActiveYears.FirstOrDefault().Start >= startYear && a.ArtistActiveYears.LastOrDefault().Start <= endYear).ToList().GetRange(0, 10);
+            if (artistList != null && artistList.Count > 0)
+                return artistList;
+            else
+            {
+                artistList = new List<ArtistJSON>();
+                artistList.Add(new ArtistJSON() { ArtistActiveYears = null, ArtistEchonestId = null, ArtistGenres = null, ArtistId = -1, ArtistImageLink = null, ArtistLocation = null, ArtistMainGenre = null, ArtistName = null, ArtistPopularity = -1 });
+                return artistList;
+            }
         }
 
         #region Private Functions
