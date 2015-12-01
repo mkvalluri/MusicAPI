@@ -151,7 +151,17 @@ namespace API.Controllers
         [HttpGet]
         public List<ArtistJSON> GetArtistsByGenre(string genreName)
         {
-            return GetArtistsInfo(artistGenres.Where(g => g.Genre.GenreName == genreName).Select(s => s.Artist.EchonestID).ToList().GetRange(0, 30));
+            List<ArtistJSON> artistList = new List<ArtistJSON>();
+            artistList = GetArtistsInfo(artistGenres.Where(g => g.Genre.GenreName.Contains(genreName)).Select(s => s.Artist.EchonestID).ToList().GetRange(0, 30));
+
+            if (artistList != null && artistList.Count > 0)
+                return artistList;
+            else
+            {
+                artistList = new List<ArtistJSON>();
+                artistList.Add(new ArtistJSON() { ArtistActiveYears = null, ArtistEchonestId = null, ArtistGenres = null, ArtistId = -1, ArtistImageLink = null, ArtistLocation = null, ArtistMainGenre = null, ArtistName = null, ArtistPopularity = -1 });
+                return artistList;
+            }
         }
 
         [Route("api/SearchArtistsByName")]
@@ -159,13 +169,8 @@ namespace API.Controllers
         public List<ArtistJSON> GetArtists(string artistName)
         {
             List<ArtistJSON> artistList = new List<ArtistJSON>();
-            WebClient wc = new WebClient();
-            var result = wc.DownloadString("http://developer.echonest.com/api/v4/artist/search?api_key=L6L1RWYT1A0EWKHJF&format=json&name=" + artistName);
-            var data = JsonConvert.DeserializeObject<EGRootObject>(result);
-            if (data.response.artists.Count > 0)
-            {
-                artistList = GetArtistsInfo(data.response.artists.Select(a => a.id).ToList());
-            }
+            artistList = artistInfos.Where(a => a.ArtistName.Contains(artistName)).ToList();
+            
             if (artistList != null && artistList.Count > 0)
                 return artistList;
             else
@@ -199,7 +204,8 @@ namespace API.Controllers
 
             artistList.ForEach(a =>
             {
-                returnArtistList.Add(artistInfos.Where(ar => ar.ArtistEchonestId == a).FirstOrDefault());
+                if(artistInfos.Where(ar => ar.ArtistEchonestId == a).FirstOrDefault() != null)
+                    returnArtistList.Add(artistInfos.Where(ar => ar.ArtistEchonestId == a).FirstOrDefault());
             });
 
             return returnArtistList;

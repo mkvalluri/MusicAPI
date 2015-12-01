@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <parameters>
-  <parameter name="Data-Web.config Connection String" description="Data Connection String used in web.config by the application to access the database." defaultValue="data source=mkvalluri.database.windows.net;initial catalog=cs424db;persist security info=True;user id=mkvalluri;password=Password123;MultipleActiveResultSets=True;App=EntityFramework" tags="SqlConnectionString">
+  <parameter name="Data1-Web.config Connection String" description="Data1 Connection String used in web.config by the application to access the database." defaultValue="data source=mkvalluri.database.windows.net;initial catalog=cs424db;persist security info=True;user id=mkvalluri;password=Password123;MultipleActiveResultSets=True;App=EntityFramework" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\Projects\\MusicAPI\\API\\API\\obj\\Debug\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='Data1']/@connectionString" />
+  </parameter>
+  <parameter name="Data-Web.config Connection String" description="Data Connection String used in web.config by the application to access the database." defaultValue="Data Source=SQL5017.Smarterasp.net;Initial Catalog=DB_9E47C6_mkvalluri;User Id=DB_9E47C6_mkvalluri_admin;Password=Password123;" tags="SqlConnectionString">
     <parameterEntry kind="XmlFile" scope="D:\\Projects\\MusicAPI\\API\\API\\obj\\Debug\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='Data']/@connectionString" />
   </parameter>
 </parameters>
