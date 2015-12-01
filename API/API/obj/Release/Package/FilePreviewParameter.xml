@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" description="" value="cs424apiv1" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^D:\\Projects\\MusicAPI\\API\\API\\obj\\Release\\Package\\PackageTmp$" />
+    <parameterEntry kind="ProviderPath" scope="setAcl" match="^D:\\Projects\\MusicAPI\\API\\API\\obj\\Release\\Package\\PackageTmp$" />
+  </parameter>
+  <parameter name="Data-Web.config Connection String" description="" value="Data Source=tcp:mkvalluri.database.windows.net,1433;Initial Catalog=cs424apiv1_db;User Id=mkvalluri@mkvalluri;Password=Password123" tags="">
+    <parameterEntry kind="XmlFile" scope="D:\\Projects\\MusicAPI\\API\\API\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='Data']/@connectionString" />
+  </parameter>
+</parameters>
