@@ -158,7 +158,14 @@ namespace API.Controllers
         [HttpGet]
         public List<ArtistJSON> GetArtists(string artistName)
         {
-            var artistList = artistInfos.Where(a => a.ArtistName.Contains(artistName)).ToList();
+            List<ArtistJSON> artistList = new List<ArtistJSON>();
+            WebClient wc = new WebClient();
+            var result = wc.DownloadString("http://developer.echonest.com/api/v4/artist/search?api_key=L6L1RWYT1A0EWKHJF&format=json&name=" + artistName);
+            var data = JsonConvert.DeserializeObject<EGRootObject>(result);
+            if (data.response.artists.Count > 0)
+            {
+                artistList = GetArtistsInfo(data.response.artists.Select(a => a.id).ToList());
+            }
             if (artistList != null && artistList.Count > 0)
                 return artistList;
             else
